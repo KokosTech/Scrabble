@@ -12,6 +12,9 @@ private:
 
     // check if the string contains allowed characters
     bool checkString(const std::string& word);
+
+    bool hasChildren();
+    bool _remove(Trie*& curr, const std::string& word);
     // helper function to output the words in the trie
     void outWords(std::ostream& os, const std::string& prefix);
 public:
