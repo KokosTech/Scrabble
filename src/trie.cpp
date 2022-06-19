@@ -1,64 +1,54 @@
-#include <string>
-#include <unordered_map>
+#include "trie.hpp"
 
-#define NUM_CHARS 26
+Trie::Trie() 
+: isEnd(false)
+{}
 
-class Trie {
-private:
-    std::unordered_map<char, Trie*> characters;
-    bool isEnd;
-public:
-    Trie() 
-    : isEnd(false) 
-    {}
+Trie::~Trie() {
+    for(auto i: this->characters) {
+        delete i.second;
+    }
+}
 
-    ~Trie() {
-        for(auto i: this->characters) {
-            delete i.second;
+bool Trie::insert(const std::string& word) {
+    Trie *tmp = this;
+    const uint length = word.length();
+
+    for(int i = 0; i < length; ++i) {
+        if(tmp->characters.find(char(word[i]-97)) == tmp->characters.end()) {
+            tmp->characters[char(word[i]-97)] = new Trie();
         }
+            
+        tmp = tmp->characters[char(word[i]-97)];
     }
 
-    bool insert(const std::string& word) {
-        Trie *tmp = this;
-        const uint length = word.length();
+    if(tmp->isEnd) {
+        return false;
+    } else {
+        tmp->isEnd = true;
+    }
 
-        for(int i = 0; i < length; ++i) {
-            if(tmp->characters.find(char(word[i]-97)) == tmp->characters.end()) {
-                tmp->characters[char(word[i]-97)] = new Trie();
-            }
-                
-            tmp = tmp->characters[char(word[i]-97)];
-        }
+    return true;
+}
 
-        if(tmp->isEnd) {
+bool Trie::search(const std::string& word) {
+    Trie *tmp = this;
+    const uint length = word.length();
+
+    for(int i = 0; i < length; ++i) { 
+        if(tmp->characters.find(word[i]) == tmp->characters.end()) {
             return false;
-        } else {
-            tmp->isEnd = true;
         }
 
-        return true;
+        tmp = tmp->characters[word[i]];
     }
 
-    bool search(const std::string& word) {
-        Trie *tmp = this;
-        const uint length = word.length();
-        for(int i = 0; i < length; ++i) {
-            if(tmp->characters.find(char(word[i]-97)) == tmp->characters.end()) {
-                return false;
-            }
-            tmp = tmp->characters[char(word[i]-97)];
-        }
+    if(tmp->isEnd == false)
+        return false;
+    
+    return true;
+}
 
-        if(!tmp->isEnd) 
-            return false;
+void Trie::remove(const std::string& word) {
 
-        return true;
-    }
-
-    void deleteWord(const std::string& word) {
-        Trie* tmp = this;
-        const uint length = word.size();
-
-        tmp->isEnd = false;
-    }
-};
+}
