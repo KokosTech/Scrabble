@@ -3,8 +3,6 @@
 #include <string>
 #include <unordered_map>
 
-#define uint unsigned int
-
 class Trie {
 private:
     std::unordered_map<char, Trie*> characters;
@@ -14,7 +12,7 @@ private:
     bool checkString(const std::string& word);
 
     bool hasChildren();
-    bool _remove(Trie*& node, const std::string& word, uint depth);
+    bool _remove(Trie*& node, const std::string& word, unsigned int depth);
     // helper function to output the words in the trie
     void outWords(std::ostream& os, const std::string& prefix);
 public:

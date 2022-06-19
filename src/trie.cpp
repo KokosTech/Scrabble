@@ -22,7 +22,7 @@ bool Trie::checkString(const std::string& word) {
 
 bool Trie::insert(const std::string& word) {
     Trie *tmp = this;
-    const uint length = word.length();
+    const unsigned int length = word.length();
 
     if(!checkString(word)) return false;
 
@@ -50,7 +50,7 @@ bool Trie::insert(const std::string& word) {
 
 bool Trie::search(const std::string& word) {
     Trie *tmp = this;
-    const uint length = word.length();
+    const unsigned int length = word.length();
 
     for(int i = 0; i < length; ++i) { 
         if(tmp->characters.find(word[i]) == tmp->characters.end() ||
@@ -79,7 +79,7 @@ bool Trie::hasChildren() {
     return true;
 }
 
-bool Trie::_remove(Trie*& node, const std::string& word, uint depth) {
+bool Trie::_remove(Trie*& node, const std::string& word, unsigned int depth) {
     if(node == nullptr) return false;
 
     if(depth < word.length()) {
