@@ -15,11 +15,11 @@ bool Trie::insert(const std::string& word) {
     const uint length = word.length();
 
     for(int i = 0; i < length; ++i) {
-        if(tmp->characters.find(char(word[i]-97)) == tmp->characters.end()) {
-            tmp->characters[char(word[i]-97)] = new Trie();
+        if(tmp->characters.find(word[i]) == tmp->characters.end()) {
+            tmp->characters[word[i]] = new Trie();
         }
             
-        tmp = tmp->characters[char(word[i]-97)];
+        tmp = tmp->characters[word[i]];
     }
 
     if(tmp->isEnd) {
