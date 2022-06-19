@@ -80,9 +80,11 @@ bool Trie::hasChildren() {
 }
 
 bool Trie::_remove(Trie*& node, const std::string& word, uint depth) {
+    //if everything works as i imagined it there shouldn't be a node with value nullptr but it doesn't hurt to be safe
     if(node == nullptr) return false;
 
     if(depth < word.length()) {
+        //check if the word exists in the tree
         if(node->characters.find(word[depth]) == node->characters.end())
             throw std::runtime_error("Word is not present in the dictionary!");
 
@@ -90,15 +92,18 @@ bool Trie::_remove(Trie*& node, const std::string& word, uint depth) {
            node->isEnd == false,
            depth != 0) 
         {   
+            //remove the pair (character, nullptr) from the hashmap
             this->characters.erase(word[depth]);            
             if(!node->hasChildren()) {
                 delete node;
                 node = nullptr;
                 return true;
             }
+        //if we have deleted the previous node and the current one is the end of another word
         } else if(this->characters[word[depth]] == nullptr) {
             this->characters.erase(word[depth]);
         }
+    // check if we have reached the end of the word
     } else if(depth == word.length() && node->isEnd) {
         if(!node->hasChildren()) {
             delete node;
