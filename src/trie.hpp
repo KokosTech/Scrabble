@@ -3,6 +3,8 @@
 #include <string>
 #include <unordered_map>
 
+#define uint unsigned int
+
 class Trie {
 private:
     std::unordered_map<char, Trie*> characters;

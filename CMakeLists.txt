@@ -50,8 +50,9 @@ include_directories(include/)
 # add an executable target with one source file
 add_executable(${CMAKE_PROJECT_NAME} 
     src/main.cpp
+    src/trie.cpp
 )
 
 # Link the target to the GTK+ libraries
 TARGET_LINK_LIBRARIES(${CMAKE_PROJECT_NAME} ${GTK3_LIBRARIES})
-target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE ${WARNING_LEVELS_GCC} $<$<CONFIG:DEBUG>:${WARNING_LEVELS_GCC_DEBUG}>)
+# target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE ${WARNING_LEVELS_GCC} $<$<CONFIG:DEBUG>:${WARNING_LEVELS_GCC_DEBUG}>)
