@@ -12,16 +12,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project (Scrabble)
 
 # GTK 3 dependency
-FIND_PACKAGE(PkgConfig REQUIRED)
-PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
+find_package(PkgConfig)
+pkg_check_modules(gtkmm gtkmm-3.0)
 
 # Setup CMake to use GTK+, tell the compiler where to look for headers
 # and to the linker where to look for libraries
-INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
-LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
+
+include_directories(${GTKMM_INCLUDE_DIRS})
+link_directories(${GTKMM_LIBRARY_DIRS})
 
 # Add other flags to the compiler
-ADD_DEFINITIONS(${GTK3_CFLAGS_OTHER})
+# ADD_DEFINITIONS(${GTK3_CFLAGS_OTHER})
 
 # some test warning levels for GCC
 set(WARNING_LEVELS_GCC
@@ -56,5 +57,5 @@ add_executable(${CMAKE_PROJECT_NAME}
 )
 
 # Link the target to the GTK+ libraries
-TARGET_LINK_LIBRARIES(${CMAKE_PROJECT_NAME} ${GTK3_LIBRARIES})
+TARGET_LINK_LIBRARIES(${CMAKE_PROJECT_NAME} ${GTKMM_LIBRARIES})
 # target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE ${WARNING_LEVELS_GCC} $<$<CONFIG:DEBUG>:${WARNING_LEVELS_GCC_DEBUG}>)
