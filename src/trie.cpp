@@ -10,9 +10,19 @@ Trie::~Trie() {
     }
 }
 
+bool Trie::checkString(const std::string& word) {
+    for(auto i: word) {
+        if(isupper(i) && i != word[0]) return false;
+        if(!isalpha(i)) return false;
+    }
+    return true;
+}
+
 bool Trie::insert(const std::string& word) {
     Trie *tmp = this;
     const uint length = word.length();
+
+    if(!checkString(word)) return false;
 
     for(int i = 0; i < length; ++i) {
         if(tmp->characters.find(word[i]) == tmp->characters.end()) {
@@ -49,6 +59,11 @@ bool Trie::search(const std::string& word) {
     return true;
 }
 
-void Trie::remove(const std::string& word) {
 
+std::ostream& operator<<(std::ostream& os, const Trie& other) {
+
+}
+
+void Trie::remove(const std::string& word) {
+    
 }
