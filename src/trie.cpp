@@ -79,26 +79,27 @@ bool Trie::hasChildren() {
     return true;
 }
 
-bool Trie::_remove(Trie*& node, const std::string& word) {
+bool Trie::_remove(Trie*& node, const std::string& word, uint depth) {
     if(node == nullptr) return false;
 
-    if(word.length()) {
-        if(node->characters.find(word[0]) == node->characters.end())
+    if(depth < word.length()) {
+        if(node->characters.find(word[depth]) == node->characters.end())
             throw std::runtime_error("Word is not present in the dictionary!");
 
-        if(_remove(node->characters[word[0]], word.substr(1)) &&
-           node->isEnd == false) 
+        if(_remove(node->characters[word[depth]], word, depth+1) &&
+           node->isEnd == false,
+           depth != 0) 
         {   
-            this->characters.erase(word[0]);            
+            this->characters.erase(word[depth]);            
             if(!node->hasChildren()) {
                 delete node;
                 node = nullptr;
                 return true;
             }
-        } else if(this->characters[word[0]] == nullptr) {
-            this->characters.erase(word[0]);
+        } else if(this->characters[word[depth]] == nullptr) {
+            this->characters.erase(word[depth]);
         }
-    } else if(!word.length() && node->isEnd) {
+    } else if(depth == word.length() && node->isEnd) {
         if(!node->hasChildren()) {
             delete node;
             node = nullptr;
@@ -112,5 +113,5 @@ bool Trie::_remove(Trie*& node, const std::string& word) {
 
 void Trie::remove(const std::string& word) {
     Trie *tmp = this;
-    this->_remove(tmp, word);
+    this->_remove(tmp, word, 0);
 }
