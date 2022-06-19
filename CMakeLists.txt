@@ -50,6 +50,8 @@ include_directories(include/)
 # add an executable target with one source file
 add_executable(${CMAKE_PROJECT_NAME} 
     src/main.cpp
+    src/menu.cpp
+    src/game.cpp
     src/trie.cpp
 )
 
