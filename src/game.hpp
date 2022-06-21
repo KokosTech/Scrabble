@@ -2,10 +2,11 @@
 
 class Game {
     private:
-        unsiged char rounds;
+        unsinged char rounds;
+        unsinged char letters
     public:
-        Game() : rounds(10) { }
-        Game(unsigned char rounds) : rounds(rounds) { }
+        Game();
+        Game(unsigned char rounds, unsigned char letters) : rounds(rounds), letters(letters) { }
 
         ~Game() { }
 
