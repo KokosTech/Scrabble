@@ -2,6 +2,7 @@
 
 //#include "menu.hpp"
 
+#include <gtkmm.h>
 #include <gtkmm/application.h>
 #include <gtkmm/button.h>
 #include <gtkmm/window.h>
@@ -25,7 +26,7 @@ HelloWorld::HelloWorld()
 : m_button("Hello Based")   // creates a new button with label "Hello World".
 {
   // Sets the border width of the window.
-  set_border_width(10);
+  set_default_size(600, 400);
 
   // When the button receives the "clicked" signal, it will call the
   // on_button_clicked() method defined below.
@@ -53,6 +54,8 @@ int main (int argc, char *argv[])
   auto app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
 
   HelloWorld helloworld;
+  helloworld.add(Gtk::TextView());
+  helloworld.show_all();
 
   //Shows the window and returns when it is closed.
   return app->run(helloworld);
