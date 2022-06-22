@@ -48,12 +48,10 @@ void PTrie::insert(const std::string &word) {
             } else if (currEdge->getPrefix().length() < currWordPart.length()) {
                 matchIndex = currEdge->getPrefix().length();
             } else {
-                std::string temp = currEdge->getPrefix().substr(matchIndex);
-                // redundant - new addEdge
+                std::string temp = currEdge->getPrefix().substr(currWordPart.length());
                 // TrieNode *newnode = new TrieNode(false);
                 // TrieEdge *newedge = new TrieEdge(temp, newnode);
-                currEdge->setPrefix(currEdge->getPrefix().substr(0, matchIndex));
-                
+                currEdge->setPrefix(currEdge->getPrefix().substr(0, currWordPart.length()));
                 // currEdge->getNode()->addEdge(temp[0], newedge);
                 addEdgeToTrieNode(currEdge->getNode(), temp[0], temp, false);
                 currEdge->getNode()->setIsEnd(true);
@@ -61,10 +59,8 @@ void PTrie::insert(const std::string &word) {
         } else {
             TrieNode *tempNode = currEdge->getNode();
             std::string temp = currEdge->getPrefix().substr(matchIndex);
-
             // TrieNode *newnode = new TrieNode(currEdge->getNode()->getIsEnd());
             addEdgeToTrieNode(currEdge->getNode(), temp[0], temp, tempNode->getIsEnd());
-           
             currEdge->getNode()->setIsEnd(false);
             // TrieEdge *newedge = new TrieEdge(currEdge->getPrefix().substr(matchIndex), newnode);
             currEdge->setPrefix(currEdge->getPrefix().substr(0, matchIndex));
