@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <string>
 
+#define ALL_MATCH -1
+
 class Edge;
 class TrieNode;
 
@@ -13,9 +15,11 @@ class PTrie {
     public:
         PTrie();
         ~PTrie();
+
         void insert(const std::string &word);
-        bool search(const std::string &word);
-        bool remove(const std::string &word);
-        friend std::ostream& operator<<(std::ostream& os, const PTrie &other);
-        friend std::istream& operator>>(std::istream& is, const PTrie &other);
+        bool search(const std::string &word); // TODO
+        bool remove(const std::string &word); // TODO
+
+        friend std::ostream& operator<<(std::ostream& os, const PTrie &other); // TODO
+        friend std::istream& operator>>(std::istream& is, const PTrie &other); // TODO
 };
