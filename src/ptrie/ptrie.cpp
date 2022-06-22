@@ -1,9 +1,9 @@
-#include <iostream>
-#include <exception>
-
 #include "ptrie.hpp"
 #include "ptrie_edge.hpp"
 #include "ptrie_node.hpp"
+
+#include <iostream>
+#include <exception>
 
 PTrie::PTrie() { this->root = new TrieNode(); }
 
