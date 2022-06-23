@@ -1,3 +1,9 @@
+<<<<<<< Updated upstream
+=======
+#include <iostream>
+#include <exception>
+
+>>>>>>> Stashed changes
 #include "ptrie_node.hpp"
 #include "ptrie_edge.hpp"
 
@@ -19,8 +25,6 @@ void TrieNode::validate(char firstCharacter) const {
 }
 
 bool TrieNode::checkIfEdgeExists(char firstCharacter) const {    
-    this->validate(firstCharacter);
-
     if(this->children.find(firstCharacter) != this->children.end())
         return true;
     return false;
@@ -35,10 +39,22 @@ void TrieNode::addEdge(char firstCharacter, TrieEdge *edge) {
     this->children[firstCharacter] = edge;
 }
 
+void TrieNode::addEdge(const std::string &prefix, TrieNode *node) {
+    this->validate(prefix[0]);
+    if(this->checkIfEdgeExists(prefix[0])) return;
+    TrieEdge *edge = new TrieEdge(prefix, node);
+    this->children[prefix[0]] = edge;
+}
+
 void TrieNode::removeEdge(char firstCharacter) {
     this->validate(firstCharacter);
 
     this->children.erase(firstCharacter);
+}
+
+bool TrieNode::hasEdges() {
+    if(this->children.empty()) return false;
+    return true;
 }
 
 // Setters and getters
@@ -47,11 +63,17 @@ void TrieNode::setIsEnd(bool isEnd) { this->isEnd = isEnd; }
 
 bool TrieNode::getIsEnd() const { return this->isEnd; }
 
-TrieEdge *TrieNode::getEdge(char firstCharacter) const {
-    this->validate(firstCharacter);
-    
+TrieEdge *TrieNode::getEdge(char firstCharacter) const {    
     if(this->checkIfEdgeExists(firstCharacter)) return this->children.at(firstCharacter);
     return nullptr;
+}
+
+const std::unordered_map<char, TrieEdge*> &TrieNode::getEdges() const {
+    return this->children;
+}
+
+unsigned int TrieNode::getEdgeCount() const {
+    return this->children.size();
 }
 
 //----------------------------------------------------------------

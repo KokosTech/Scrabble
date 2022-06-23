@@ -72,8 +72,88 @@ void PTrie::insert(const std::string &word) {
     }
 }
 
-// TODO - Search / Delete
+bool PTrie::search(const std::string &word) {
+    TrieNode *currNode = this->root;
+    unsigned int currIndex = 0;
+    TrieEdge *currEdge;
+    while(currIndex <= word.length()) {
+        currEdge = currNode->getEdge(word[currIndex]);
+        std::string currWordPart = word.substr(currIndex);
+        if(!currEdge) return false;
 
-// IO Funcs
+        int matchIndex = matchPrefixChars(currEdge->getPrefix(), currWordPart);
+        if(matchIndex == ALL_MATCH && currEdge->getPrefix().length() <= currWordPart.length()) {
+            currNode = currEdge->getNode();
+            currIndex += currEdge->getPrefix().length();
+            if(currEdge->getPrefix().length() == currWordPart.length()) {
+                break;
+            }
+        } else {
+            return false;
+        }                        
+    }
+    return currNode->getIsEnd();
+}
 
+TrieNode* PTrie::_delete_rec(TrieNode *node, TrieEdge *edge, const std::string &word) {
+    if(!node) return nullptr;
+
+    if(word.empty()) {
+        if(!node->hasEdges() && node != this->root) {
+            delete node;
+            return nullptr;
+        }
+        node->setIsEnd(false);
+
+        return node;
+    }
+
+    int matchIndex = 0;
+    if(edge) matchIndex = matchPrefixChars(edge->getPrefix(), word);
+    // std::cout << edge->getPrefix() << " " << word << std::endl;
+    if(matchIndex == ALL_MATCH && edge->getPrefix().length() <= word.length()) {
+        matchIndex = edge->getPrefix().length();
+
+        std::string nextWordPart = word.substr(matchIndex);
+        TrieNode *nextnode = edge->getNode();
+        TrieEdge *nextedge = nextnode->getEdge(nextWordPart[0]);
+
+        TrieNode *prevnode = _delete_rec(nextnode, nextedge, nextWordPart); 
+        edge->setNode(prevnode);
+        if(!prevnode) {
+            
+            delete edge;
+            node->removeEdge(word[0]);
+            if(node != this->root && !node->getIsEnd() && !node->hasEdges()) 
+            {
+                delete node;  
+                return nullptr;  
+            } 
+        } else if(!prevnode->getIsEnd() && prevnode->getEdgeCount() == 1) {
+
+            node->removeEdge(word[0]);
+            TrieEdge *prevedge = prevnode->getEdges().begin()->second;
+            std::string addprefix = edge->getPrefix() + prevedge->getPrefix();
+
+            addEdgeToTrieNode(node, addprefix[0], addprefix, prevedge->getNode());
+            
+            prevedge->setNode(nullptr);
+            //when the destructor of edge is called the memory for prevnode and prevedge will be freed too
+            delete edge;
+        }
+    } else {
+        throw std::invalid_argument("Cannot delete a word that is not in the tree!");
+    }
+    return node;
+}
+
+void PTrie::remove(const std::string &word) {
+    if(word.empty()) throw std::invalid_argument("Cannot delete an empty string!");
+    this->_delete_rec(this->root, this->root->getEdge(word[0]), word);
+}
+
+<<<<<<< Updated upstream
 // TODO - Input / Output
+=======
+// TODO IO Funcs
+>>>>>>> Stashed changes
