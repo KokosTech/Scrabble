@@ -2,11 +2,11 @@
 
 #include <iostream>
 
-void clearScreen() {
+void Menu::clearScreen() {
     std::cout << "\033[2J\033[1;1H";
 }
 
-void cls() {
+void Menu::cls() {
     std::cout<<"Press enter to continue...";
     getchar();
     getchar();
@@ -24,6 +24,7 @@ void Menu::printMainMenu() {
 }
 
 void Menu::printOptionsMenu() {
+    clearScreen();
     std::cout << "======== OPTIONS ========\n";
     std::cout << "1. Change number of letters\n";
     std::cout << "2. Change number of rounds\n";
@@ -92,3 +93,5 @@ int Menu::MainMenu() {
     }
 }
 
+int Menu::letters = 5;
+int Menu::rounds = 10;

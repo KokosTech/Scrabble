@@ -77,3 +77,15 @@ void addEdgeToTrieNode(TrieNode *node, char firstCharacter, const std::string &p
     TrieEdge *edge = new TrieEdge(prefix, edgenode);
     node->addEdge(firstCharacter, edge);
 } 
+
+
+//----------------------------------------------------------------
+
+std::ostream& operator<<(std::ostream& os, const TrieNode &other) {
+    os << "TrieNode: " << std::endl;
+    os << "isEnd: " << other.isEnd << std::endl;
+    os << "children: " << std::endl;
+    for(auto i: other.children)
+        os << "    " << i.first << ": " << i.second << std::endl;
+    return os;
+}

@@ -3,6 +3,8 @@
 #include "ptrie_node.hpp"
 
 #include <iostream>
+#include <string>
+#include <sstream>  
 #include <exception>
 
 PTrie::PTrie() { this->root = new TrieNode(); }
@@ -153,5 +155,25 @@ void PTrie::remove(const std::string &word) {
 }
 
 // TODO - Input / Output
+
+std::ostream& operator<<(std::ostream& os, const PTrie &other) {
+    os << "PTrie: " << std::endl;
+    os << "Root: " << std::endl;
+    os << *other.root << std::endl;
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, PTrie &other) {
+    std::string line;
+    while(std::getline(is, line)) {
+        if(line.empty()) break;
+        std::stringstream ss(line);
+        std::string word;
+        while(ss >> word) {
+            other.insert(word);
+        }
+    }
+    return is;
+}
 
 // TODO IO Funcs

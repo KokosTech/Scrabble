@@ -27,6 +27,8 @@ class TrieNode {
         TrieEdge *getEdge(char firstCharacter) const;
         const std::unordered_map<char, TrieEdge*> &getEdges() const;
         unsigned int getEdgeCount() const;
+
+        friend std::ostream& operator<<(std::ostream& os, const TrieNode &other); // TODO
 };  
 
 void addEdgeToTrieNode(TrieNode *node, char firstCharacter, const std::string &prefix, bool edgeNodeIsEnd);

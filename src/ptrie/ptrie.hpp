@@ -23,5 +23,5 @@ class PTrie {
         void remove(const std::string &word);
 
         friend std::ostream& operator<<(std::ostream& os, const PTrie &other); // TODO
-        friend std::istream& operator>>(std::istream& is, const PTrie &other); // TODO
+        friend std::istream& operator>>(std::istream& is, PTrie &other); // TODO
 };
