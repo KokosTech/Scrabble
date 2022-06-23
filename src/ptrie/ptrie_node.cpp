@@ -78,7 +78,6 @@ void addEdgeToTrieNode(TrieNode *node, char firstCharacter, const std::string &p
     node->addEdge(firstCharacter, edge);
 } 
 
-
 //----------------------------------------------------------------
 
 std::ostream& operator<<(std::ostream& os, const TrieNode &other) {

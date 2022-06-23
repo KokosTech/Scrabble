@@ -13,7 +13,7 @@ class PTrie {
     private:
         
         int matchPrefixChars(const std::string &prefix, const std::string& word);
-        TrieNode *_delete_rec(TrieNode *root, TrieEdge *edge, const std::string &word);
+        TrieNode *_delete_rec(TrieNode *root, const std::string &word);
 
     public:TrieNode *root;
         PTrie();
