@@ -110,8 +110,6 @@ TrieNode* PTrie::_delete_rec(TrieNode *currNode, const std::string &word) {
         return currNode;
     }
 
-    std::cout << word << std::endl;
-
     TrieEdge *currEdge = currNode->getEdge(word[0]);    
     std::string prefix = currEdge->getPrefix();
 
