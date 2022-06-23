@@ -1,4 +1,6 @@
 #include"Game.hpp"
+#include "SortedLetter.hpp"
+
 #include<iostream>
 #include<random>
 #include<vector>

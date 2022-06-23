@@ -10,7 +10,7 @@ int main()
 {
     if(Menu::MainMenu())
     {
-        cout<<Game::Play(Menu::letters, Menu::rounds);
+        cout<<Game::start(Menu::letters, Menu::rounds);
     }
 
     return 0;

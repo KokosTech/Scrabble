@@ -1,9 +1,16 @@
-#pragma once
-
 class Menu {
     private:
         static void clearScreen();
-        static void printMenu();
+
+        static void cls();
+
+        static void printMainMenu();
+        static void printOptionsMenu();
+        
+        static void Options();
+
     public:
-        static void menu();
+        static int letters, rounds;
+        
+        static int MainMenu();
 };

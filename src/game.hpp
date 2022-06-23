@@ -1,14 +1,13 @@
 #pragma once
-
 class Game {
     private:
-        unsinged char rounds;
-        unsinged char letters
+        unsigned char rounds;
+        unsigned char letters;
     public:
         Game();
-        Game(unsigned char rounds, unsigned char letters) : rounds(rounds), letters(letters) { }
+        Game(unsigned char rounds, unsigned char letters);
 
-        ~Game() { }
+        ~Game();
 
-        void start();
+        static int start(int letters, int rounds);
 };
