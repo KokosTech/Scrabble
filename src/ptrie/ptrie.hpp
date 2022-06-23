@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 #include <string>
+#include <fstream>
 
 #define ALL_MATCH -1
 
@@ -24,4 +25,20 @@ class PTrie {
 
         friend std::ostream& operator<<(std::ostream& os, const PTrie &other); // TODO
         friend std::istream& operator>>(std::istream& is, PTrie &other); // TODO
+
+        // TODO IO Funcs
+
+        void print(std::ostream &os);
+
+        // TODO - Write to file
+
+        friend void writeToFile();
+        friend void writeToFile(const std::string &filename);
+        friend void writeToFile(std::ofstream &f);
+
+        // TODO - Read from file
+
+        friend void readFromFile();
+        friend void readFromFile(const std::string &filename);
+        friend void readFromFile(std::ifstream &f);
 };

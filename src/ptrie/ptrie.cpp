@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>  
+#include <fstream>
 #include <exception>
 
 PTrie::PTrie() { this->root = new TrieNode(); }
@@ -177,3 +178,35 @@ std::istream& operator>>(std::istream& is, PTrie &other) {
 }
 
 // TODO IO Funcs
+
+void PTrie::print(std::ostream &os) {
+    os << *this;
+}
+
+// TODO - Write to file
+
+void writeToFile(const PTrie &other) {
+
+}
+
+void writeToFile(const std::string &filename, const PTrie &other) {
+
+}
+
+void writeToFile(std::ofstream &f, const PTrie &other) {
+
+}
+
+// TODO - Read from file
+
+void readFromFile(PTrie &other) {
+
+}
+
+void readFromFile(const std::string &filename, PTrie &other) {
+
+}
+
+void readFromFile(std::ifstream &fv, PTrie &other) {
+
+}
