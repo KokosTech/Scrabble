@@ -12,7 +12,7 @@ Game::Game(unsigned char rounds, unsigned char letters) : rounds(rounds), letter
 std::set<char> Game::getLetters(const std::vector<LetSort> &letters) {
     std::set<char> s;
     std::vector<LetSort>::const_iterator it = letters.begin();
-    for(it; it < letters.end(); ++it) {
+    for(it; it != letters.end(); ++it) {
         s.insert(it->getLet());
     }
 
@@ -23,7 +23,7 @@ bool Game::validateLetters(const std::string &word, const std::vector<LetSort> &
     std::set<char> lettersSet = Game::getLetters(letters);
 
     for(int i = 0; i < word.length(); ++i) {
-        if(lettersSet.find(word[0]) == lettersSet.end()) {
+        if(lettersSet.find(word[i]) == lettersSet.end()) {
             throw std::runtime_error("Only the given capital letters must be used!");
         }   
     }
