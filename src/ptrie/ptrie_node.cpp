@@ -1,7 +1,7 @@
 #include "ptrie_node.hpp"
 #include "ptrie_edge.hpp"
 
-#include <exception>
+#include <iostream>
 
 TrieNode::TrieNode() : isEnd(false) { }
 
