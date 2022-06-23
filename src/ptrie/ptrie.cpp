@@ -14,7 +14,7 @@ PTrie::~PTrie() { delete this->root; }
 
 // Helpers
 
-int PTrie::matchPrefixChars(const std::string &prefix, const std::string &word) {
+int PTrie::matchPrefixChars(const std::string &prefix, const std::string &word) const {
     for(unsigned int i = 0; i < prefix.length() && i < word.length(); ++i)
         if(word[i] != prefix[i]) return i;
     
@@ -75,7 +75,7 @@ void PTrie::insert(const std::string &word) {
     }
 }
 
-bool PTrie::search(const std::string &word) {
+bool PTrie::search(const std::string &word) const {
     TrieNode *currNode = this->root;
     unsigned int currIndex = 0;
     TrieEdge *currEdge;

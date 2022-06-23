@@ -1,8 +1,10 @@
 #include "game.hpp"
 #include "SortedLetter.hpp"
+#include "ptrie/ptrie.hpp"
 
 #include <iostream>
 #include <random>
+#include <exception>
 #include <ctime>
 
 Game::Game() 
@@ -19,22 +21,27 @@ std::set<char> Game::getLetters(const std::vector<LetSort> &letters) {
     return s;
 }
 
-bool Game::validateLetters(const std::string &word, const std::vector<LetSort> &letters) {
+void Game::validateWord(const std::string &input, const std::vector<LetSort> &letters, const PTrie &dictionary) {
     std::set<char> lettersSet = Game::getLetters(letters);
 
-    for(int i = 0; i < word.length(); ++i) {
-        if(lettersSet.find(word[i]) == lettersSet.end()) {
+    for(int i = 0; i < input.length(); ++i) {
+        if(lettersSet.find(input[i]) == lettersSet.end()) {
             throw std::runtime_error("Only the given capital letters must be used!");
         }   
     }
 
-    return true;
+    if(!dictionary.search(input)) {
+        throw std::runtime_error("Word is invalid - it is not present in the dictionary or is already used by another player!");
+    }
 }
 
 int Game::start(int lettersSize, int rounds)
 {
     int points = 0;
-    for(int i = 0; i < rounds; i++)
+    int i = 0;
+    PTrie dictionary;
+
+    while(i < rounds)
     {
         std::cout<<"Your given letters are: ";
         std::vector<LetSort> letters;
@@ -65,9 +72,14 @@ int Game::start(int lettersSize, int rounds)
         std::cin >> input;
 
         //Check if the word is Possible with given letters and if its a real word
-        Game::validateLetters(input, letters);
+        try {
+            Game::validateWord(input, letters, dictionary);
+            // dictionary.remove(input);
+            //TODO: Add points logic
+            ++i;
+        } catch(const std::exception &e) {
+            std::cout << e.what() << std::endl;
+        }
     }
     return points;
 }
-
-
