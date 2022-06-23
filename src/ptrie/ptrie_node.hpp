@@ -23,6 +23,7 @@ class TrieNode {
         void setIsEnd(bool isEnd);
         bool getIsEnd() const;
         TrieEdge *getEdge(char firstCharacter) const;
+        unsigned int TrieNode::getEdgeCount() const;
 };  
 
 void addEdgeToTrieNode(TrieNode *node, char firstCharacter, const std::string &prefix, bool edgeNodeIsEnd);
