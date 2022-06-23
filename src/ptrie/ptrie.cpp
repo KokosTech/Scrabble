@@ -152,8 +152,6 @@ void PTrie::remove(const std::string &word) {
     this->_delete_rec(this->root, this->root->getEdge(word[0]), word);
 }
 
-<<<<<<< Updated upstream
 // TODO - Input / Output
-=======
+
 // TODO IO Funcs
->>>>>>> Stashed changes

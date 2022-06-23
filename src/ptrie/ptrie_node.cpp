@@ -1,9 +1,3 @@
-<<<<<<< Updated upstream
-=======
-#include <iostream>
-#include <exception>
-
->>>>>>> Stashed changes
 #include "ptrie_node.hpp"
 #include "ptrie_edge.hpp"
 
