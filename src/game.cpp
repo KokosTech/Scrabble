@@ -3,12 +3,33 @@
 
 #include <iostream>
 #include <random>
-#include <vector>
 #include <ctime>
 
 Game::Game() 
 : rounds(10), letters(10) { }
 Game::Game(unsigned char rounds, unsigned char letters) : rounds(rounds), letters(letters) { }
+
+std::set<char> Game::getLetters(const std::vector<LetSort> &letters) {
+    std::set<char> s;
+    std::vector<LetSort>::const_iterator it = letters.begin();
+    for(it; it < letters.end(); ++it) {
+        s.insert(it->getLet());
+    }
+
+    return s;
+}
+
+bool Game::validateLetters(const std::string &word, const std::vector<LetSort> &letters) {
+    std::set<char> lettersSet = Game::getLetters(letters);
+
+    for(int i = 0; i < word.length(); ++i) {
+        if(lettersSet.find(word[0]) == lettersSet.end()) {
+            throw std::runtime_error("Only the given capital letters must be used!");
+        }   
+    }
+
+    return true;
+}
 
 int Game::start(int lettersSize, int rounds)
 {
@@ -42,7 +63,9 @@ int Game::start(int lettersSize, int rounds)
         std::cout << "\nEnter a word with the given letters: ";
         std::string input;
         std::cin >> input;
+
         //Check if the word is Possible with given letters and if its a real word
+        Game::validateLetters(input, letters);
     }
     return points;
 }
