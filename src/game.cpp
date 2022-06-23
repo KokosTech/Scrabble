@@ -21,7 +21,7 @@ std::set<char> Game::getLetters(const std::vector<LetSort> &letters) {
     return s;
 }
 
-void Game::validateWord(const std::string &input, const std::vector<LetSort> &letters, const PTrie &dictionary) {
+void Game::validateInput(const std::string &input, const std::vector<LetSort> &letters, const PTrie &dictionary) {
     std::set<char> lettersSet = Game::getLetters(letters);
 
     for(int i = 0; i < input.length(); ++i) {
@@ -40,6 +40,8 @@ int Game::start(int lettersSize, int rounds)
     int points = 0;
     int i = 0;
     PTrie dictionary;
+
+    //TODO: ADD READING DICTIONARY FROM FILE
 
     while(i < rounds)
     {
@@ -73,7 +75,7 @@ int Game::start(int lettersSize, int rounds)
 
         //Check if the word is Possible with given letters and if its a real word
         try {
-            Game::validateWord(input, letters, dictionary);
+            Game::validateInput(input, letters, dictionary);
             // dictionary.remove(input);
             //TODO: Add points logic
             ++i;
