@@ -12,7 +12,7 @@ class Game {
         unsigned char rounds;
         unsigned char letters;
         static std::set<char> getLetters(const std::vector<LetSort> &letters);
-        static void validateInput(const std::string &input, const std::vector<LetSort> &letters, const PTrie &dictionary);
+        static void validateInput(const std::string &const_input, const std::vector<LetSort> &letters, const PTrie &dictionary);
     public:
         Game();
         Game(unsigned char rounds, unsigned char letters);

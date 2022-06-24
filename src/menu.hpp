@@ -1,9 +1,5 @@
 class Menu {
     private:
-        static void clearScreen();
-
-        static void cls();
-
         static void printMainMenu();
         static void printOptionsMenu();
         
@@ -11,6 +7,9 @@ class Menu {
 
     public:
         static int letters, rounds;
+        
+        static void clearScreen();
+        static void cls();
         
         static int MainMenu();
 };

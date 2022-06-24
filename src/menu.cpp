@@ -14,6 +14,7 @@ void Menu::cls() {
 }
 
 void Menu::printMainMenu() {
+    clearScreen();
     std::cout << "======== MENU ========\n";
     std::cout << "1. Start game\n";
     std::cout << "2. Settings\n";

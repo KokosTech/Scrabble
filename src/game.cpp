@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "menu.hpp"
 #include "SortedLetter.hpp"
 #include "ptrie/ptrie.hpp"
 
@@ -21,12 +22,15 @@ std::set<char> Game::getLetters(const std::vector<LetSort> &letters) {
     return s;
 }
 
-void Game::validateInput(const std::string &input, const std::vector<LetSort> &letters, const PTrie &dictionary) {
+void Game::validateInput(const std::string &const_input, const std::vector<LetSort> &letters, const PTrie &dictionary) {
     std::set<char> lettersSet = Game::getLetters(letters);
+    
+    std::string input = const_input;
+    std::transform(input.begin(), input.end(),input.begin(), ::toupper);
 
     for(int i = 0; i < input.length(); ++i) {
         if(lettersSet.find(input[i]) == lettersSet.end()) {
-            throw std::runtime_error("Only the given capital letters must be used!");
+            throw std::runtime_error("Only given letters must be used!");
         }   
     }
 
@@ -45,6 +49,7 @@ int Game::start(int lettersSize, int rounds)
 
     while(i < rounds)
     {
+        Menu::cls();
         std::cout<<"Your given letters are: ";
         std::vector<LetSort> letters;
         for(int y = 0; y < lettersSize; y++)
