@@ -14,6 +14,10 @@ class TrieNode {
     public:
         TrieNode();        
         TrieNode(bool isEnd);
+        TrieNode(const TrieNode &other);
+
+        TrieNode &operator=(const TrieNode &other);
+
         ~TrieNode();
         
         void addEdge(char firstCharacter, TrieEdge *edge);
