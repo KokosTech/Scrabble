@@ -7,6 +7,7 @@
 #include <sstream>  
 #include <fstream>
 #include <exception>
+#include <algorithm>
 
 PTrie::PTrie() { this->root = new TrieNode(); }
 
@@ -172,6 +173,7 @@ std::istream& operator>>(std::istream& is, PTrie &other) {
         std::stringstream ss(line);
         std::string word;
         while(ss >> word) {
+            std::transform(word.begin(), word.end(), word.begin(), ::toupper);
             other.insert(word);
         }
     }
@@ -191,6 +193,8 @@ void writeToFile(const PTrie &other) {
 }
 
 void writeToFile(const std::string &filename, const PTrie &other) {
+    std::ofstream f;
+    if(!f.is_open()) throw std::runtime_error("Cannot write to file");
 
 }
 
@@ -205,7 +209,11 @@ void readFromFile(PTrie &other) {
 }
 
 void readFromFile(const std::string &filename, PTrie &other) {
-
+    std::ifstream f;
+    f.open(filename, std::ios::in);
+    if(!f.is_open()) throw std::runtime_error("Cannot read from file");
+    f >> other;
+    f.close();
 }
 
 void readFromFile(std::ifstream &fv, PTrie &other) {

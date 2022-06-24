@@ -45,13 +45,13 @@ class PTrie {
 
         // TODO - Write to file
 
-        friend void writeToFile();
-        friend void writeToFile(const std::string &filename);
-        friend void writeToFile(std::ofstream &f);
+        friend void writeToFile(PTrie &other);
+        friend void writeToFile(const std::string &filename, PTrie &other);
+        friend void writeToFile(std::ofstream &f, PTrie &other);
 
         // TODO - Read from file
 
-        friend void readFromFile();
-        friend void readFromFile(const std::string &filename);
-        friend void readFromFile(std::ifstream &f);
+        friend void readFromFile(PTrie &other);
+        friend void readFromFile(const std::string &filename, PTrie &other);
+        friend void readFromFile(std::ifstream &f, PTrie &other);
 };

@@ -7,6 +7,7 @@
 #include <random>
 #include <exception>
 #include <ctime>
+#include <algorithm>
 
 Game::Game() 
 : rounds(10), letters(10) { }
