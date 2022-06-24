@@ -127,7 +127,7 @@ TrieNode* PTrie::_delete_rec(TrieNode *currNode, const std::string &word) {
            !currNode->getIsEnd() &&
            currNode != this->root) 
         {
-            delete currEdge;
+            delete currNode;
             return nullptr;
         }
     } else if(removed->getEdgeCount() == 1 && !removed->getIsEnd()) {
