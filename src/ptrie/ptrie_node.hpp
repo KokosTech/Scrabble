@@ -1,9 +1,9 @@
 #pragma once
 
+#include "ptrie_edge.hpp"
+
 #include <unordered_map>
 #include <string>
-
-class TrieEdge;
 
 class TrieNode {
     private:
