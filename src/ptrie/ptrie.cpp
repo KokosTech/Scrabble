@@ -152,6 +152,10 @@ void PTrie::remove(const std::string &word) {
     this->_delete_rec(this->root, word);
 }
 
+// Getters and setters
+
+const TrieNode &PTrie::getRoot() const { return *(this->root); }
+
 // TODO - Input / Output
 
 std::ostream& operator<<(std::ostream& os, const PTrie &other) {

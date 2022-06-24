@@ -11,13 +11,12 @@ class TrieNode;
 
 class PTrie {
     private:
+        TrieNode *root;
         
         int matchPrefixChars(const std::string &prefix, const std::string& word) const;
         TrieNode *_delete_rec(TrieNode *root, const std::string &word);
 
     public:
-        TrieNode *root;
-
         PTrie();
         PTrie(const PTrie &other);
 
@@ -25,9 +24,17 @@ class PTrie {
 
         ~PTrie();
 
+        // Funcs
+
         void insert(const std::string &word);
         bool search(const std::string &word) const;
         void remove(const std::string &word);
+
+        // Getters and setters
+
+        const TrieNode &getRoot() const;
+
+        // IO Streams
 
         friend std::ostream& operator<<(std::ostream& os, const PTrie &other); // TODO
         friend std::istream& operator>>(std::istream& is, PTrie &other); // TODO
