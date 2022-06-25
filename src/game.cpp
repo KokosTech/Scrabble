@@ -9,36 +9,10 @@
 #include <ctime>
 #include <algorithm>
 
-Game::Game() 
+Game::Game()
 : rounds(10), letters(10) { }
 Game::Game(unsigned char rounds, unsigned char letters) : rounds(rounds), letters(letters) { }
 
-std::set<char> Game::getLetters(const std::vector<LetSort> &letters) {
-    std::set<char> s;
-    std::vector<LetSort>::const_iterator it = letters.begin();
-    for(it; it != letters.end(); ++it) {
-        s.insert(it->getLet());
-    }
-
-    return s;
-}
-
-void Game::validateInput(const std::string &const_input, const std::vector<LetSort> &letters, const PTrie &dictionary) {
-    std::set<char> lettersSet = Game::getLetters(letters);
-    
-    std::string input = const_input;
-    std::transform(input.begin(), input.end(),input.begin(), ::toupper);
-
-    for(int i = 0; i < input.length(); ++i) {
-        if(lettersSet.find(input[i]) == lettersSet.end()) {
-            throw std::runtime_error("Only given letters must be used!");
-        }   
-    }
-
-    if(!dictionary.search(input)) {
-        throw std::runtime_error("Word is invalid - it is not present in the dictionary or is already used by another player!");
-    }
-}
 
 int Game::start(int lettersSize, int rounds)
 {
