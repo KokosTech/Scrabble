@@ -240,14 +240,16 @@ void PTrie::print() {
 
 void writeToFile(const std::string &filename, const PTrie &other) {
     std::ofstream f;
-    if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot write to file");
+    if(!f.is_open()) throw std::runtime_error("Cannot write to file");
     f << other;
+    if(!f.good()) throw std::runtime_error("Cannot write to file");
     f.close();
 }
 
 void writeToFile(std::ofstream &f, const PTrie &other) {
-    if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot write to file");
+    if(!f.is_open()) throw std::runtime_error("Cannot write to file");
     f << other;
+    if(!f.good()) throw std::runtime_error("Cannot write to file");
 }
 
 // Read from file
@@ -255,12 +257,14 @@ void writeToFile(std::ofstream &f, const PTrie &other) {
 void readFromFile(const std::string &filename, PTrie &other) {
     std::ifstream f;
     f.open(filename, std::ios::in);
-    if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot read from file");
+    if(!f.is_open()) throw std::runtime_error("Cannot read from file");
     f >> other;
+    if(!f.good()) throw std::runtime_error("Cannot read to file");
     f.close();
 }
 
 void readFromFile(std::ifstream &f, PTrie &other) {
     if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot read from file");
     f >> other;
+    if(!f.good()) throw std::runtime_error("Cannot read to file");
 }
