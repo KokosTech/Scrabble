@@ -212,10 +212,8 @@ std::vector<std::string> PTrie::getWords() const {
 // TODO - Input / Output
 
 std::ostream& operator<<(std::ostream& os, const PTrie &other) {
-    os << "PTrie: " << std::endl;
-    os << "Root: " << std::endl;
-    os << *other.root << std::endl;
-    return os;
+    for (auto i: other.getWords())
+        os << i << ' ';
 }
 
 std::istream& operator>>(std::istream& is, PTrie &other) {
@@ -234,40 +232,35 @@ std::istream& operator>>(std::istream& is, PTrie &other) {
 
 // TODO IO Funcs
 
-void PTrie::print(std::ostream &os) {
-    os << *this;
+void PTrie::print() {
+    std::cout << *this;
 }
 
-// TODO - Write to file
+// Write to file
 
-void writeToFile(const PTrie &other) {
-
-}
-
-void writeToFile(const std::string &filename, const PTrie &other) {
+void writeToFile(const std::string &filename = "output.txt", const PTrie &other) {
     std::ofstream f;
-    if(!f.is_open()) throw std::runtime_error("Cannot write to file");
-
+    if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot write to file");
+    f << other;
+    f.close();
 }
 
 void writeToFile(std::ofstream &f, const PTrie &other) {
-
+    if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot write to file");
+    f << other;
 }
 
-// TODO - Read from file
+// Read from file
 
-void readFromFile(PTrie &other) {
-
-}
-
-void readFromFile(const std::string &filename, PTrie &other) {
+void readFromFile(const std::string &filename = "config.txt", PTrie &other) {
     std::ifstream f;
     f.open(filename, std::ios::in);
-    if(!f.is_open()) throw std::runtime_error("Cannot read from file");
+    if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot read from file");
     f >> other;
     f.close();
 }
 
-void readFromFile(std::ifstream &fv, PTrie &other) {
-
+void readFromFile(std::ifstream &f, PTrie &other) {
+    if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot read from file");
+    f >> other;
 }

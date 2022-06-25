@@ -1,7 +1,9 @@
 #pragma once
 
-#include <unordered_map>
 #include <string>
+#include <vector>
+#include <unordered_map>
+
 #include <fstream>
 
 #define ALL_MATCH -1
@@ -43,9 +45,9 @@ class PTrie {
         friend std::ostream& operator<<(std::ostream& os, const PTrie &other); // TODO
         friend std::istream& operator>>(std::istream& is, PTrie &other); // TODO
 
-        // TODO IO Funcs
+        // IO Funcs
 
-        void print(std::ostream &os);
+        void print();
 
         // TODO - Write to file
 
@@ -53,7 +55,7 @@ class PTrie {
         friend void writeToFile(const std::string &filename, PTrie &other);
         friend void writeToFile(std::ofstream &f, PTrie &other);
 
-        // TODO - Read from file
+        // Read from file
 
         friend void readFromFile(PTrie &other);
         friend void readFromFile(const std::string &filename, PTrie &other);
