@@ -13,7 +13,7 @@ class PTrie {
     private:
         TrieNode *root;
         
-        void PTrie::_copyConstructor(TrieNode *thisRoot, TrieNode *otherRoot);
+        void _copyConstructor(TrieNode *thisRoot, TrieNode *otherRoot);
         void _getWordRec(TrieNode *root, const std::string &prefix, std::vector<std::string> &words) const;
 
         int matchPrefixChars(const std::string &prefix, const std::string& word) const;
