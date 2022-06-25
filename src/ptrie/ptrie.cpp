@@ -238,7 +238,7 @@ void PTrie::print() {
 
 // Write to file
 
-void writeToFile(const std::string &filename = "output.txt", const PTrie &other) {
+void writeToFile(const std::string &filename, const PTrie &other) {
     std::ofstream f;
     if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot write to file");
     f << other;
@@ -252,7 +252,7 @@ void writeToFile(std::ofstream &f, const PTrie &other) {
 
 // Read from file
 
-void readFromFile(const std::string &filename = "config.txt", PTrie &other) {
+void readFromFile(const std::string &filename, PTrie &other) {
     std::ifstream f;
     f.open(filename, std::ios::in);
     if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot read from file");
