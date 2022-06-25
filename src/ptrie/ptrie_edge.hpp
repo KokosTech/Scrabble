@@ -11,7 +11,7 @@ class TrieEdge {
     public:
         TrieEdge(const std::string &prefix);
         TrieEdge(const std::string &prefix, TrieNode *node);
-        TrieEdge(const TrieEdge &other);
+        TrieEdge(const TrieEdge &other) = delete;
 
         TrieEdge &operator=(const TrieEdge &other);
 

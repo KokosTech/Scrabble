@@ -13,6 +13,9 @@ class PTrie {
     private:
         TrieNode *root;
         
+        void PTrie::_copyConstructor(TrieNode *thisRoot, TrieNode *otherRoot);
+        void _getWordRec(TrieNode *root, const std::string &prefix, std::vector<std::string> &words) const;
+
         int matchPrefixChars(const std::string &prefix, const std::string& word) const;
         TrieNode *_delete_rec(TrieNode *root, const std::string &word);
 
@@ -33,6 +36,7 @@ class PTrie {
         // Getters and setters
 
         const TrieNode &getRoot() const;
+        std::vector<std::string> getWords() const;
 
         // IO Streams
 

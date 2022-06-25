@@ -3,13 +3,45 @@
 #include "ptrie_node.hpp"
 
 #include <iostream>
-#include <string>
 #include <sstream>  
 #include <fstream>
+
+#include <string>
+#include <vector>
+
 #include <exception>
 #include <algorithm>
 
 PTrie::PTrie() { this->root = new TrieNode(); }
+
+void PTrie::_copyConstructor(TrieNode *thisRoot, TrieNode *otherRoot) {
+    if(!otherRoot) return;
+    
+    for(std::pair<char, TrieEdge*> edges: otherRoot->getEdges()) {
+        TrieEdge *otherEdge = edges.second;
+        TrieNode *newNode = new TrieNode(otherEdge->getNode()->getIsEnd());
+        
+        thisRoot->addEdge(otherEdge->getPrefix(), newNode);
+
+        _copyConstructor(newNode, otherEdge->getNode());
+    }
+}
+
+PTrie::PTrie(const PTrie &other) {
+    this->root = new TrieNode();
+    _copyConstructor(this->root, other.root);
+}
+
+PTrie &PTrie::operator=(const PTrie &other) {  
+    if(this != &other) {
+        for(std::pair<char, TrieEdge*> edge: this->root->getEdges()) {
+            delete edge.second;
+        }
+        _copyConstructor(this->root, other.root);
+    }
+
+    return *this;
+}
 
 PTrie::~PTrie() { delete this->root; }
 
@@ -156,6 +188,26 @@ void PTrie::remove(const std::string &word) {
 // Getters and setters
 
 const TrieNode &PTrie::getRoot() const { return *(this->root); }
+
+void PTrie::_getWordRec(TrieNode *root, const std::string &prefix, std::vector<std::string> &words) const {
+    if(!root) return;
+
+    if(root->getIsEnd()) words.push_back(prefix);
+
+    std::string currPrefix;
+
+    for(std::pair<char, TrieEdge*> edges: root->getEdges()) {
+        TrieEdge *edge = edges.second;
+        currPrefix = prefix + edge->getPrefix();
+        _getWordRec(edge->getNode(), currPrefix, words);
+    }
+} 
+
+std::vector<std::string> PTrie::getWords() const {
+    std::vector<std::string> words;
+    _getWordRec(this->root, "", words);
+    return words;
+}
 
 // TODO - Input / Output
 
