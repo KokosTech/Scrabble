@@ -8,8 +8,7 @@ class Board
 public:
 
     Board();
-    void AddFirstWord(std::string word, char dir, size_t x, size_t y, map<char, int> letters);
-    void AddWord(std::string word, char dir, size_t x, size_t y, map<char, int> letters);
+    bool AddWord(std::string word, char dir, size_t x, size_t y, std::map<char, int> letters, bool first);
 
     void printBoard();
 

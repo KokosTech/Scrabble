@@ -1,5 +1,6 @@
 #include"StringChecks.hpp"
 #include<iterator>
+#include<iostream>
 
 bool StringChecks::LetCheck(std::string str, std::map<char, int> letters)
 {
@@ -9,9 +10,10 @@ bool StringChecks::LetCheck(std::string str, std::map<char, int> letters)
         bool Nfound = 1;
         for(itr = letters.begin(); itr != letters.end(); itr++)
         {
-            if(str[i] == itr->first)
+            if(str[i] == itr->first || str[i] - 32 == itr->first)
             {
                 itr->second--;
+                if(itr->second < 0)return 0;
                 Nfound = 0;
                 break;
             }
@@ -27,10 +29,10 @@ bool StringChecks::PosCheck(std::string str, size_t x, size_t y, char dir)
 {
     if(dir == 'H')
     {
-        return x + str.size() - 1 < 15;
+        return x + str.size() < 15;
     }else if(dir == 'V')
     {
-        return y + str.size() - 1 < 15;
+        return y + str.size() < 15;
     }
     return 0;
 }
@@ -39,20 +41,23 @@ bool StringChecks::BoardCheck(std::string str, size_t x, size_t y, char dir, cha
 {
     if(!PosCheck(str, x, y, dir))return 0;
     //Check if str is a word from the tree
-    if(dir == 'H')
+    if(dir == 'V')
     {
         bool OtherLet = 0;
         std::string neededLet = str;
-
-        if(x > 0 && board[x-1][y] != '*')return 0;
-        if(x + str.size() < 15 && board[x + str.size()][y] != '*')return 0;
+        size_t deleted = 0;
+        std::cout<<neededLet<<std::endl;
+        if(x > 0 && board[x-1][y] != '*'){std::cout<<"++Case 1++";return 0;}
+        if(x + str.size() - 1 < 15 && board[x + str.size()][y] != '*'){std::cout<<"++Case 2++";return 0;}
         for(int i = 0; i < str.size(); i++)
         {
             if(board[x+i][y] != '*')
             {
-                if(board[x+i][y] != str[i]) return 0;
+                if(board[x+i][y] != str[i]){std::cout<<"++Case 2++";return 0;}
 
-                neededLet.erase(i, 1);
+                neededLet.erase(i - deleted, 1);
+                deleted++;
+                std::cout<<neededLet<<std::endl;
                 OtherLet = 1;
             }else
             {
@@ -74,24 +79,28 @@ bool StringChecks::BoardCheck(std::string str, size_t x, size_t y, char dir, cha
                 }
             }
         }
-        if(!OtherLet && !first)return 0;
-        if(!StringChecks::LetCheck(neededLet, letters))return 0;
+        if(!OtherLet && !first){std::cout<<"++Case 4++";return 0;}
+        if(!StringChecks::LetCheck(neededLet, letters)){std::cout<<"++Case 5++";return 0;}
     }
 
-    if(dir == 'V')
+    if(dir == 'H')
     {
         bool OtherLet = 0;
         std::string neededLet = str;
+        int deleted = 0;
+        std::cout<<neededLet<<std::endl;
 
-        if(y > 0 && board[x][y - 1] != '*')return 0;
-        if(y + str.size() < 15 && board[x][y + str.size()] != '*')return 0;
+        if(y > 0 && board[x][y - 1] != '*'){std::cout<<"++Case 6++";return 0;}
+        if(y + str.size() - 1 < 15 && board[x][y + str.size()] != '*'){std::cout<<"++Case 7++";return 0;}
         for(int i = 0; i < str.size(); i++)
         {
             if(board[x][y+i] != '*')
             {
-                if(board[x][y+i] != str[i]) return 0;
+                if(board[x][y+i] != str[i]){std::cout<<"++Case 8++";return 0;}
 
-                neededLet.erase(i, 1);
+                neededLet.erase(i - deleted, 1);
+                deleted++;
+                std::cout<<neededLet<<std::endl;
                 OtherLet = 1;
             }else
             {
@@ -113,7 +122,8 @@ bool StringChecks::BoardCheck(std::string str, size_t x, size_t y, char dir, cha
                 }
             }
         }
-        if(!OtherLet && !first)return 0;
-        if(!StringChecks::LetCheck(neededLet, letters))return 0;
+        if(!OtherLet && !first){std::cout<<"++Case 9++";return 0;}
+        if(!StringChecks::LetCheck(neededLet, letters)){std::cout<<"++Case 10++";return 0;}
     }
+    return 1;
 }

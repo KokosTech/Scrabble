@@ -3,7 +3,7 @@
 #include <iostream>
 
 void Menu::clearScreen() {
-    std::cout << "\033[2J\033[1;1H";
+    std::cout << "\033[2J\033[1;1H\n";
 }
 
 void Menu::cls() {
@@ -94,5 +94,5 @@ int Menu::MainMenu() {
     }
 }
 
-int Menu::letters = 5;
+int Menu::letters = 10;
 int Menu::rounds = 10;

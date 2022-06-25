@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Board.hpp"
 #include <vector>
 #include <set>
 #include <string>
@@ -11,11 +12,12 @@ class Game {
     private:
         unsigned char rounds;
         unsigned char letters;
+        Board green;
     public:
         Game();
         Game(unsigned char rounds, unsigned char letters);
 
         ~Game();
 
-        static int start(int letters, int rounds);
+        int start(int letters, int rounds);
 };
