@@ -5,12 +5,12 @@
 
 //#include "menu.hpp"
 
-#include <gtkmm.h>
-#include <gtkmm/application.h>
-#include <gtkmm/button.h>
-#include <gtkmm/window.h>
+//#include <gtkmm.h>
+//#include <gtkmm/application.h>
+//#include <gtkmm/button.h>
+//#include <gtkmm/window.h>
 
-class HelloWorld : public Gtk::Window
+/*class HelloWorld// : public Gtk::Window
 {
 
 public:
@@ -51,7 +51,7 @@ void HelloWorld::on_button_clicked()
 {
   std::cout << "Hello World" << std::endl;
 }
-
+*/
 int main (int argc, char *argv[])
 {
 /*   auto app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
@@ -63,8 +63,11 @@ int main (int argc, char *argv[])
   //Shows the window and returns when it is closed.
   return app->run(helloworld); */
 
-      if(Menu::MainMenu())
+
+
+    if(Menu::MainMenu())
     {
-        std::cout << Game::start(Menu::letters, Menu::rounds);
+        Game game(Menu::rounds, Menu::letters);
+        std::cout << game.start(Menu::letters, Menu::rounds);
     }
 }
