@@ -1,5 +1,5 @@
 #include "umap.hpp"
-#include "hmap.hpp"
+#include <unordered_map>
 
 #include <iostream>
 #include <sstream>
@@ -50,7 +50,7 @@ void UMap::remove(const int index)
     }
 }
 
-const Map &UMap::getMap() const
+const std::unordered_map<std::string, int> &UMap::getMap() const
 {
     return this->map;
 }
@@ -124,7 +124,7 @@ UMap UMap::ToLowerCase(UMap &other)
     return newMap;
 }
 
-void writeToFile(const std::string &fileName, UMap &other)
+void writeMapToFile(const std::string &fileName, UMap &other)
 {
     std::ofstream file;
     file.open(fileName);
@@ -141,7 +141,7 @@ void writeToFile(const std::string &fileName, UMap &other)
     file.close();
 }
 
-void writeToFile(std::ofstream &file, UMap &other)
+void writeMapToFile(std::ofstream &file, UMap &other)
 {
     if (!file.is_open())
     {
@@ -155,7 +155,7 @@ void writeToFile(std::ofstream &file, UMap &other)
     }
 }
 
-void readFromFile(const std::string &fileName, UMap &other)
+void readMapFromFile(const std::string &fileName, UMap &other)
 {
     std::ifstream file;
     if (!file.is_open())
@@ -172,7 +172,7 @@ void readFromFile(const std::string &fileName, UMap &other)
     file.close();
 }
 
-void readFromFile(std::ifstream &file, UMap &other)
+void readMapFromFile(std::ifstream &file, UMap &other)
 {
     if (!file.is_open())
     {

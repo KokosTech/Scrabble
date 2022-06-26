@@ -2,15 +2,14 @@
 
 #include <string>
 #include <vector>
-
-#include "hmap.hpp"
+#include <unordered_map>
 
 #include <fstream>
 
 class UMap
 {
 private:
-    Map map;
+    std::unordered_map<std::string, int> map;
 
 public:
     UMap();
@@ -25,7 +24,7 @@ public:
     void remove(const int);
 
     // Getters and setters
-    const Map &getMap() const;
+    const std::unordered_map<std::string, int> &getMap() const;
     std::vector<std::string> getWords() const;
 
     // IO Streams
@@ -41,10 +40,10 @@ public:
     UMap ToLowerCase(UMap &other);
 
     // TODO - Write to file
-    friend void writeToFile(const std::string &filename, UMap &other);
-    friend void writeToFile(std::ofstream &f, UMap &other);
+    friend void writeMapToFile(const std::string &filename, UMap &other);
+    friend void writeMapToFile(std::ofstream &f, UMap &other);
 
     // Read from file
-    friend void readFromFile(const std::string &filename, UMap &other);
-    friend void readFromFile(std::ifstream &f, UMap &other);
+    friend void readMapFromFile(const std::string &filename, UMap &other);
+    friend void readMapFromFile(std::ifstream &f, UMap &other);
 };
