@@ -1,6 +1,6 @@
 #include "menu.hpp"
 #include "game.hpp"
-#include "umap.hpp"
+#include "umap/umap.hpp"
 #include <iostream>
 
 //#include "menu.hpp"
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
   // build dictionary from file
   UMap dictionary;
-  readMapFromFile("dictionary.txt", dictionary);
+  readMapFromFile("", dictionary);
   dictionary.sort(dictionary);
 
   if (Menu::MainMenu())
