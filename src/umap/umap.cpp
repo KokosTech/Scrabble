@@ -166,11 +166,11 @@ void writeMapToFile(std::ofstream &file, UMap &other)
 void readMapFromFile(const std::string &fileName, UMap &other)
 {
     std::ifstream file;
+    file.open(fileName);
     if (!file.is_open())
     {
         throw std::runtime_error("Could not open file");
     }
-    file.open(fileName);
     file >> other;
     if (!file.good())
     {
