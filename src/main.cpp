@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
   // build dictionary from file
   UMap dictionary;
-  readMapFromFile("", dictionary);
+  readMapFromFile("../config/dict.txt", dictionary);
   dictionary.sort(dictionary);
 
   if (Menu::MainMenu())
