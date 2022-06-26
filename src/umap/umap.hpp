@@ -2,14 +2,15 @@
 
 #include <string>
 #include <vector>
-#include <unordered_map>
+
+#include "hmap.hpp"
 
 #include <fstream>
 
 class UMap
 {
 private:
-    std::unordered_map<std::string, int> map;
+    Map map;
 
 public:
     UMap();
@@ -24,7 +25,7 @@ public:
     void remove(const int);
 
     // Getters and setters
-    const std::unordered_map<std::string, int> &getMap() const;
+    const Map &getMap() const;
     std::vector<std::string> getWords() const;
 
     // IO Streams

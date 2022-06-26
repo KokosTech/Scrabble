@@ -1,4 +1,5 @@
 #include "umap.hpp"
+#include "hmap.hpp"
 
 #include <iostream>
 #include <sstream>
@@ -49,7 +50,7 @@ void UMap::remove(const int index)
     }
 }
 
-const std::unordered_map<std::string, int> &UMap::getMap() const
+const Map &UMap::getMap() const
 {
     return this->map;
 }
