@@ -7,14 +7,18 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #include <exception>
 #include <algorithm>
 
-UMap::UMap() {}
+UMap::UMap() : count(0)
+{
+}
 
 UMap::UMap(const UMap &other)
 {
+    this->count = other.count;
     this->map = other.map;
 }
 
@@ -31,14 +35,7 @@ UMap::~UMap() {}
 
 void UMap::insert(const std::string &word)
 {
-    if (this->map.find(word) == this->map.end())
-    {
-        this->map[word] = 1;
-    }
-    else
-    {
-        this->map[word]++;
-    }
+    this->map[this->count++] = word;
 }
 
 void UMap::remove(const int index)
@@ -46,30 +43,41 @@ void UMap::remove(const int index)
     std::vector<std::string> words = this->getWords();
     if (index >= 0 && index < words.size())
     {
-        this->map.erase(words[index]);
+        this->map.erase(index);
     }
 }
 
-const std::unordered_map<std::string, int> &UMap::getMap() const
+void sort(UMap &other)
+{
+    std::vector<std::string> words = other.getWords();
+    std::sort(words.begin(), words.end());
+    other.map.clear();
+    for (int i = 0; i < words.size(); i++)
+    {
+        other.map[i] = words[i];
+    }
+}
+
+const std::unordered_map<int, std::string> &UMap::getMap() const
 {
     return this->map;
 }
 
-std::vector<std::string> UMap::getWords() const
+std::vector<std::string> UMap::getWords()
 {
     std::vector<std::string> words;
-    for (std::pair<std::string, int> pair : this->map)
+    for (std::pair<int, std::string> pair : this->map)
     {
-        words.push_back(pair.first);
+        words.push_back(pair.second);
     }
     return words;
 }
 
 std::ostream &operator<<(std::ostream &os, const UMap &other)
 {
-    for (std::pair<std::string, int> pair : other.map)
+    for (std::pair<int, std::string> pair : other.map)
     {
-        os << pair.first << ": " << pair.second << std::endl;
+        os << pair.second << std::endl;
     }
     return os;
 }
@@ -90,7 +98,7 @@ std::istream &operator>>(std::istream &is, UMap &other)
 
 void UMap::printMap()
 {
-    for (std::pair<std::string, int> pair : this->map)
+    for (std::pair<int, std::string> pair : this->map)
     {
         std::cout << pair.first << ": " << pair.second << std::endl;
     }
@@ -99,13 +107,13 @@ void UMap::printMap()
 UMap UMap::ToUpperCase(UMap &other)
 {
     UMap newMap;
-    for (std::pair<std::string, int> pair : other.map)
+    for (std::pair<int, std::string> pair : other.map)
     {
-        for (int i = 0; i < pair.first.length(); i++)
+        for (int i = 0; i < pair.second.length(); i++)
         {
-            pair.first[i] = toupper(pair.first[i]);
+            pair.second[i] = toupper(pair.second[i]);
         }
-        newMap.insert(pair.first);
+        newMap.insert(pair.second);
     }
     return newMap;
 }
@@ -113,13 +121,13 @@ UMap UMap::ToUpperCase(UMap &other)
 UMap UMap::ToLowerCase(UMap &other)
 {
     UMap newMap;
-    for (std::pair<std::string, int> pair : other.map)
+    for (std::pair<int, std::string> pair : other.map)
     {
-        for (int i = 0; i < pair.first.length(); i++)
+        for (int i = 0; i < pair.second.length(); i++)
         {
-            pair.first[i] = tolower(pair.first[i]);
+            pair.second[i] = tolower(pair.second[i]);
         }
-        newMap.insert(pair.first);
+        newMap.insert(pair.second);
     }
     return newMap;
 }

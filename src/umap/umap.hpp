@@ -9,7 +9,8 @@
 class UMap
 {
 private:
-    std::unordered_map<std::string, int> map;
+    std::unordered_map<int, std::string> map;
+    int count;
 
 public:
     UMap();
@@ -22,10 +23,11 @@ public:
     // Funcs
     void insert(const std::string &word);
     void remove(const int);
+    friend void sort(UMap &other);
 
     // Getters and setters
-    const std::unordered_map<std::string, int> &getMap() const;
-    std::vector<std::string> getWords() const;
+    const std::unordered_map<int, std::string> &getMap() const;
+    std::vector<std::string> getWords();
 
     // IO Streams
     friend std::ostream &operator<<(std::ostream &os, const UMap &other);
