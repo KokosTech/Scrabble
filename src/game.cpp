@@ -3,6 +3,7 @@
 #include "SortedLetter.hpp"
 #include "ptrie/ptrie.hpp"
 #include "Board.hpp"
+#include "umap/umap.hpp"
 
 #include <iostream>
 #include <random>
@@ -14,12 +15,16 @@ Game::Game()
 Game::Game(unsigned char rounds, unsigned char letters) : rounds(rounds), letters(letters), green() {}
 
 
-int Game::start(int lettersSize, int rounds)
+int Game::start(int lettersSize, int rounds, UMap &dictionary)
 {
     int points = 0;
     int i = 0;
-    PTrie dictionary;
-    //TODO: ADD READING DICTIONARY FROM FILE
+    PTrie trie;
+    
+    dictionary = dictionary.ToUpperCase(dictionary);
+    dictionary.printMap();
+    trie.getFromDictionary(dictionary.getWords());
+
     srand(time(NULL));
     while(i < rounds)
     {
@@ -60,7 +65,7 @@ int Game::start(int lettersSize, int rounds)
 
 
 
-        if(!green.AddWord(input, dir, x-1, y-1, letters, i == 0))
+        if(!green.AddWord(input, dir, x-1, y-1, letters, i == 0, trie))
         {
             std::cout<<"Invalid inputs. Press enter to continue...";
             getchar();
@@ -70,9 +75,7 @@ int Game::start(int lettersSize, int rounds)
 
         //Check if the word is Possible with given letters and if its a real word
         try {
-
-            // dictionary.remove(input);
-            //TODO: Add points logic
+            trie.remove(input);
             ++i;
         } catch(const std::exception &e) {
             std::cout << e.what() << std::endl;

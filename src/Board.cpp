@@ -1,5 +1,6 @@
 #include"Board.hpp"
 #include"StringChecks.hpp"
+#include "ptrie/ptrie.hpp"
 
 #include<iostream>
 
@@ -46,8 +47,10 @@ void Board::printBoard()
     }
 }
 
-bool Board::AddWord(std::string word, char dir, size_t x, size_t y, std::map<char, int> letters, bool first)
+bool Board::AddWord(std::string word, char dir, size_t x, size_t y, std::map<char, int> letters, bool first, PTrie &pt)
 {
+    if(pt.search(word) == -1) return 0; 
+
     for(int i = 0; i < word.size(); i++)word[i] = toupper(word[i]);
 
     if(StringChecks::BoardCheck(word, x, y, dir, this->tiles, letters, first))

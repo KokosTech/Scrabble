@@ -7,6 +7,7 @@
 
 class LetSort;
 class PTrie;
+class UMap;
 
 class Game {
     private:
@@ -19,5 +20,5 @@ class Game {
 
         ~Game();
 
-        int start(int letters, int rounds);
+        int start(int letters, int rounds, UMap &map);
 };

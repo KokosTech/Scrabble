@@ -1,4 +1,5 @@
 #include "menu.hpp"
+#include "umap/umap.hpp"
 
 #include <iostream>
 
@@ -64,7 +65,17 @@ void Menu::Options() {
     }
 }
 
-int Menu::MainMenu() {
+void Menu::AddWord(UMap &map) {
+    std::cout<<"Add new word to dictionary:";
+    std::string word;
+    std::cin>>word;
+    map.insert(word);
+    map.sort(map);
+
+    writeMapToFile("../config/dict.txt", map);
+}
+
+int Menu::MainMenu(UMap &map) {
     letters = 10;
     rounds = 10;
 
@@ -82,13 +93,8 @@ int Menu::MainMenu() {
                 Options();
                 break;
             case 3:
-            { 
-                std::cout<<"Add new word to dictionary:";
-                std::string word;
-                std::cin>>word;
-                //AddWord(word);
+                AddWord(map);
                 break;
-            }
             case 4:
                 return 0;
                 
