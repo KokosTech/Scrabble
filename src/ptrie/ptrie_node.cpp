@@ -7,6 +7,8 @@ TrieNode::TrieNode() : isEnd(false) { }
 
 TrieNode::TrieNode(bool isEnd) : isEnd(isEnd) { }
 
+TrieNode::TrieNode(bool isEnd, int endIndex) : isEnd(isEnd), endIndex(endIndex) { }
+
 TrieNode::~TrieNode() {
     for(auto i: children)
         delete i.second;
@@ -40,6 +42,14 @@ void TrieNode::addEdge(const std::string &prefix, TrieNode *node) {
     this->children[prefix[0]] = edge;
 }
 
+void TrieNode::addEdge(char firstCharacter, const std::string &prefix, bool edgeNodeIsEnd, int endIndex) {
+    this->validate(firstCharacter);
+    if(this->checkIfEdgeExists(firstCharacter)) return; 
+    TrieNode *edgenode = new TrieNode(edgeNodeIsEnd);
+    TrieEdge *edge = new TrieEdge(prefix, edgenode);
+    this->children[firstCharacter] = edge;
+}
+
 void TrieNode::changeEdge(char firstCharacter, TrieEdge *edge) {
     if(this->children.find(firstCharacter) == this->children.end()) return;
     
@@ -61,8 +71,9 @@ bool TrieNode::hasEdges() {
 // Setters and getters
 
 void TrieNode::setIsEnd(bool isEnd) { this->isEnd = isEnd; }
-
+void TrieNode::setEndIndex(int endIndex) { this->endIndex = endIndex; }
 bool TrieNode::getIsEnd() const { return this->isEnd; }
+int TrieNode::getEndIndex() const { return this->endIndex; }
 
 TrieEdge *TrieNode::getEdge(char firstCharacter) const {    
     if(this->checkIfEdgeExists(firstCharacter)) return this->children.at(firstCharacter);
@@ -77,19 +88,10 @@ unsigned int TrieNode::getEdgeCount() const {
     return this->children.size();
 }
 
-//----------------------------------------------------------------
-
-void addEdgeToTrieNode(TrieNode *node, char firstCharacter, const std::string &prefix, bool edgeNodeIsEnd) {
-    TrieNode *edgenode = new TrieNode(edgeNodeIsEnd);
-    TrieEdge *edge = new TrieEdge(prefix, edgenode);
-    node->addEdge(firstCharacter, edge);
-} 
-
-//----------------------------------------------------------------
-
 std::ostream& operator<<(std::ostream& os, const TrieNode &other) {
     os << "TrieNode: " << std::endl;
     os << "isEnd: " << other.isEnd << std::endl;
+    os << "endIndex: " << other.endIndex << std::endl;
     os << "children: " << std::endl;
     for(auto i: other.children)
         os << "    " << i.first << ": " << i.second << std::endl;

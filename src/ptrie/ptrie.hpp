@@ -32,9 +32,9 @@ class PTrie {
         // Funcs
         
         void changeEdge(char firstCharacter, TrieEdge *edge);
-        void _insert(TrieNode *current, const std::string &word);
+        void _insert(TrieNode *current, const std::string &word, int endIndex);
 
-        void insert(const std::string &word);
+        void insert(const std::string &word, int endIndex);
         bool search(const std::string &word) const;
         void remove(const std::string &word);
 

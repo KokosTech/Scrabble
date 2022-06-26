@@ -32,7 +32,7 @@ public:
     friend std::istream &operator>>(std::istream &is, UMap &other);
 
     // IO Funcs
-    void UMap::printMap();
+    void printMap();
 
     // ToUpperCase , ToLowerCase
 

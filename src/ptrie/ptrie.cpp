@@ -19,7 +19,7 @@ void PTrie::_copyConstructor(TrieNode *thisRoot, TrieNode *otherRoot) {
     
     for(std::pair<char, TrieEdge*> edges: otherRoot->getEdges()) {
         TrieEdge *otherEdge = edges.second;
-        TrieNode *newNode = new TrieNode(otherEdge->getNode()->getIsEnd());
+        TrieNode *newNode = new TrieNode(otherEdge->getNode()->getIsEnd(), otherEdge->getNode()->getEndIndex());
         
         thisRoot->addEdge(otherEdge->getPrefix(), newNode);
 
@@ -56,10 +56,10 @@ int PTrie::matchPrefixChars(const std::string &prefix, const std::string &word) 
 
 // Funcs
 
-void PTrie::_insert(TrieNode *current, const std::string &word) {
+void PTrie::_insert(TrieNode *current, const std::string &word, int endIndex) {
     if(!current) return;
     if(current->getEdge(word[0]) == nullptr) {
-        addEdgeToTrieNode(current, word[0], word, true);
+        current->addEdge(word[0], word, true, endIndex);
         return;
     }
 
@@ -70,13 +70,14 @@ void PTrie::_insert(TrieNode *current, const std::string &word) {
     if(match == -1) {
         if(word.length() == prefix.length()) {
             edge->getNode()->setIsEnd(true);
+            edge->getNode()->setEndIndex(endIndex);
+            return;
         } else if (word.length() > prefix.length()) {
             match = prefix.length();
         } else {
             std::string newpref = prefix.substr(word.length());
             TrieEdge *newedge = new TrieEdge(prefix.substr(0, word.length()));
-            TrieNode *newnode = new TrieNode(true);
-
+            TrieNode *newnode = new TrieNode(true, endIndex);
             newedge->setNode(newnode);
             newnode->addEdge(newpref[0], edge);
             edge->setPrefix(newpref);
@@ -94,12 +95,12 @@ void PTrie::_insert(TrieNode *current, const std::string &word) {
         current->changeEdge(prefix[0], newedge);
     }
 
-    _insert(current->getEdge(word[0])->getNode(), word.substr(match));
+    _insert(current->getEdge(word[0])->getNode(), word.substr(match), endIndex);
 }
 
-void PTrie::insert(const std::string &word) {
+void PTrie::insert(const std::string &word, int endIndex) {
     TrieNode *current = this->root;
-    _insert(this->root, word);
+    _insert(this->root, word, endIndex);
 }
 
 bool PTrie::search(const std::string &word) const {
@@ -220,7 +221,7 @@ std::istream& operator>>(std::istream& is, PTrie &other) {
         std::string word;
         while(ss >> word) {
             std::transform(word.begin(), word.end(), word.begin(), ::toupper);
-            other.insert(word);
+            //other.insert(word);
         }
     }
     return is;
