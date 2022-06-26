@@ -165,31 +165,15 @@ void writeMapToFile(std::ofstream &file, UMap &other)
 
 void readMapFromFile(const std::string &fileName, UMap &other)
 {
-    std::ifstream file;
-    file.open(fileName);
-    if (!file.is_open())
-    {
-        throw std::runtime_error("Could not open file");
-    }
-    file >> other;
-    if (!file.good())
-    {
-        throw std::runtime_error("Could not read from file");
-    }
-    other.ToUpperCase(other);
-    file.close();
+    std::ifstream f;
+    f.open(fileName, std::ios::in);
+    if(!f.is_open()) throw std::runtime_error("Cannot read from file");
+    f >> other;
+    f.close();
 }
 
 void readMapFromFile(std::ifstream &file, UMap &other)
 {
-    if (!file.is_open())
-    {
-        throw std::runtime_error("Could not open file");
-    }
+    if(!file.is_open() || !file.good()) throw std::runtime_error("Cannot read filerom fileile");
     file >> other;
-    if (!file.good())
-    {
-        throw std::runtime_error("Could not read from file");
-    }
-    other.ToUpperCase(other);
 }

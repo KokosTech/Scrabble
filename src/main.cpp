@@ -65,12 +65,9 @@ int main(int argc, char *argv[])
 
   // build dictionary from file
   UMap dictionary;
-  readMapFromFile("../config/dict.txt", dictionary);
-  dictionary.sort(dictionary);
-
+  readMapFromFile("/home/aleko/Documents/GitHub/Scrabble/config/dict.txt", dictionary);
   if (Menu::MainMenu())
   {
-
     Game game(Menu::rounds, Menu::letters);
     std::cout << game.start(Menu::letters, Menu::rounds);
   }
