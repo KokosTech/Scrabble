@@ -23,7 +23,7 @@ public:
     // Funcs
     void insert(const std::string &word);
     void remove(const int);
-    friend void sort(UMap &other);
+    void sort(UMap &other);
 
     // Getters and setters
     const std::unordered_map<int, std::string> &getMap() const;

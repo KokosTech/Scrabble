@@ -47,7 +47,7 @@ void UMap::remove(const int index)
     }
 }
 
-void sort(UMap &other)
+void UMap::sort(UMap &other)
 {
     std::vector<std::string> words = other.getWords();
     std::sort(words.begin(), words.end());
