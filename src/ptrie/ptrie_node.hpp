@@ -22,12 +22,16 @@ class TrieNode {
         
         void addEdge(char firstCharacter, TrieEdge *edge);
         void addEdge(const std::string &prefix, TrieNode *node);
-        bool checkIfEdgeExists(char firstCharacter) const;
+
+        void changeEdge(char firstCharacter, TrieEdge *edge);
         void removeEdge(char firstCharacter); 
+        
+        bool checkIfEdgeExists(char firstCharacter) const;
         bool hasEdges();
 
         void setIsEnd(bool isEnd);
         bool getIsEnd() const;
+        
         TrieEdge *getEdge(char firstCharacter) const;
         const std::unordered_map<char, TrieEdge*> &getEdges() const;
         unsigned int getEdgeCount() const;

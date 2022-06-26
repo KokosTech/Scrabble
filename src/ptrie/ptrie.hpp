@@ -30,6 +30,9 @@ class PTrie {
         ~PTrie();
 
         // Funcs
+        
+        void changeEdge(char firstCharacter, TrieEdge *edge);
+        void _insert(TrieNode *current, const std::string &word);
 
         void insert(const std::string &word);
         bool search(const std::string &word) const;
@@ -49,7 +52,7 @@ class PTrie {
 
         void print();
 
-        // TODO - Write to file
+        // Write to file
 
         friend void writeToFile(const std::string &filename, PTrie &other);
         friend void writeToFile(std::ofstream &f, PTrie &other);

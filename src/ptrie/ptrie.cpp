@@ -56,56 +56,50 @@ int PTrie::matchPrefixChars(const std::string &prefix, const std::string &word) 
 
 // Funcs
 
-void PTrie::insert(const std::string &word) {
-    TrieNode *currNode = this->root;
-    unsigned int currIndex = 0;
-
-    if(word.empty()) throw std::invalid_argument("Cannot insert an empty string!");
-
-    // Worst case scenario
-    while(currIndex < word.length()) {
-        TrieEdge *currEdge = currNode->getEdge(word[currIndex]);
-        std::string currWordPart = word.substr(currIndex);
-
-        if(currEdge == nullptr) {
-            TrieNode *newnode = new TrieNode(true);
-            TrieEdge *newedge = new TrieEdge(currWordPart, newnode);     
-
-            currNode->addEdge(currWordPart[0], newedge);
-            break;
-        } 
-
-        int matchIndex = matchPrefixChars(currEdge->getPrefix(), currWordPart);
-        
-        if(matchIndex == ALL_MATCH) {
-            if(currEdge->getPrefix().length() == currWordPart.length()) {
-                currEdge->getNode()->setIsEnd(true);
-                break;
-            } else if (currEdge->getPrefix().length() < currWordPart.length()) {
-                matchIndex = currEdge->getPrefix().length();
-            } else {
-                std::string temp = currEdge->getPrefix().substr(currWordPart.length());
-                // TrieNode *newnode = new TrieNode(false);
-                // TrieEdge *newedge = new TrieEdge(temp, newnode);
-                currEdge->setPrefix(currEdge->getPrefix().substr(0, currWordPart.length()));
-                // currEdge->getNode()->addEdge(temp[0], newedge);
-                addEdgeToTrieNode(currEdge->getNode(), temp[0], temp, false);
-                currEdge->getNode()->setIsEnd(true);
-            }
-        } else {
-            TrieNode *tempNode = currEdge->getNode();
-            std::string temp = currEdge->getPrefix().substr(matchIndex);
-            // TrieNode *newnode = new TrieNode(currEdge->getNode()->getIsEnd());
-            addEdgeToTrieNode(currEdge->getNode(), temp[0], temp, tempNode->getIsEnd());
-            currEdge->getNode()->setIsEnd(false);
-            // TrieEdge *newedge = new TrieEdge(currEdge->getPrefix().substr(matchIndex), newnode);
-            currEdge->setPrefix(currEdge->getPrefix().substr(0, matchIndex));
-            // currEdge->getNode()->addEdge(temp[0], newedge);
-        }
-
-        currNode = currEdge->getNode();
-        currIndex += matchIndex;
+void PTrie::_insert(TrieNode *current, const std::string &word) {
+    if(!current) return;
+    if(current->getEdge(word[0]) == nullptr) {
+        addEdgeToTrieNode(current, word[0], word, true);
+        return;
     }
+
+    TrieEdge *edge = current->getEdge(word[0]);
+    std::string prefix = edge->getPrefix();
+    int match = matchPrefixChars(prefix, word);
+
+    if(match == -1) {
+        if(word.length() == prefix.length()) {
+            edge->getNode()->setIsEnd(true);
+        } else if (word.length() > prefix.length()) {
+            match = prefix.length();
+        } else {
+            std::string newpref = prefix.substr(word.length());
+            TrieEdge *newedge = new TrieEdge(prefix.substr(0, word.length()));
+            TrieNode *newnode = new TrieNode(true);
+
+            newedge->setNode(newnode);
+            newnode->addEdge(newpref[0], edge);
+            edge->setPrefix(newpref);
+            current->changeEdge(prefix[0], newedge);
+            return;
+        }
+    } else {
+        std::string newpref = prefix.substr(match);
+        TrieEdge *newedge = new TrieEdge(prefix.substr(0, match));
+        TrieNode *newnode = new TrieNode(false);
+        
+        newedge->setNode(newnode);
+        newnode->addEdge(newpref[0], edge);
+        edge->setPrefix(prefix.substr(match));
+        current->changeEdge(prefix[0], newedge);
+    }
+
+    _insert(current->getEdge(word[0])->getNode(), word.substr(match));
+}
+
+void PTrie::insert(const std::string &word) {
+    TrieNode *current = this->root;
+    _insert(this->root, word);
 }
 
 bool PTrie::search(const std::string &word) const {

@@ -23,3 +23,4 @@ void TrieEdge::setNode(TrieNode *node) { this->node = node; }
 const std::string &TrieEdge::getPrefix() const { return this->prefix; }
 
 TrieNode *TrieEdge::getNode() const { return this->node; }
+

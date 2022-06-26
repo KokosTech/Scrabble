@@ -40,6 +40,13 @@ void TrieNode::addEdge(const std::string &prefix, TrieNode *node) {
     this->children[prefix[0]] = edge;
 }
 
+void TrieNode::changeEdge(char firstCharacter, TrieEdge *edge) {
+    if(this->children.find(firstCharacter) == this->children.end()) return;
+    
+    this->children.erase(firstCharacter);
+    this->children[firstCharacter] = edge;
+}
+
 void TrieNode::removeEdge(char firstCharacter) {
     this->validate(firstCharacter);
 
