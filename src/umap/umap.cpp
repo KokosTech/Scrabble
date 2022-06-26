@@ -134,46 +134,38 @@ UMap UMap::ToLowerCase(UMap &other)
 
 void writeMapToFile(const std::string &fileName, UMap &other)
 {
-    std::ofstream file;
-    file.open(fileName);
-    if (!file.is_open())
-    {
-        throw std::runtime_error("Could not open file");
-    }
-    other.ToLowerCase(other);
-    file << other;
-    if (!file.good())
-    {
-        throw std::runtime_error("Could not write to file");
-    }
-    file.close();
+    std::ofstream f;
+    f.open(fileName, std::ios::out);
+    if (!f.is_open())
+        throw std::runtime_error("Cannot write to file");
+    f << other;
+    if (!f.good())
+        throw std::runtime_error("Cannot write to file");
+    f.close();
 }
 
 void writeMapToFile(std::ofstream &file, UMap &other)
 {
     if (!file.is_open())
-    {
-        throw std::runtime_error("Could not open file");
-    }
-    other.ToLowerCase(other);
+        throw std::runtime_error("Cannot write to file");
     file << other;
     if (!file.good())
-    {
-        throw std::runtime_error("Could not write to file");
-    }
+        throw std::runtime_error("Cannot write to file");
 }
 
 void readMapFromFile(const std::string &fileName, UMap &other)
 {
     std::ifstream f;
     f.open(fileName, std::ios::in);
-    if(!f.is_open()) throw std::runtime_error("Cannot read from file");
+    if (!f.is_open())
+        throw std::runtime_error("Cannot read from file");
     f >> other;
     f.close();
 }
 
 void readMapFromFile(std::ifstream &file, UMap &other)
 {
-    if(!file.is_open() || !file.good()) throw std::runtime_error("Cannot read filerom fileile");
+    if (!file.is_open() || !file.good())
+        throw std::runtime_error("Cannot read filerom fileile");
     file >> other;
 }
