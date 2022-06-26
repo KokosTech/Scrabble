@@ -82,7 +82,10 @@ int Menu::MainMenu() {
                 Options();
                 break;
             case 3:
-                //Enter new word
+                std::cout<<"Add new word to dictionary:";
+                std::string word;
+                std::cin>>word;
+                //AddWord(word);
                 break;
             case 4:
                 return 0;
