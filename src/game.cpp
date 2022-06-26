@@ -22,7 +22,6 @@ int Game::start(int lettersSize, int rounds, UMap &dictionary)
     PTrie trie;
     
     dictionary = dictionary.ToUpperCase(dictionary);
-    dictionary.printMap();
     trie.getFromDictionary(dictionary.getWords());
 
     srand(time(NULL));
