@@ -236,6 +236,7 @@ void PTrie::print() {
 
 void writeToFile(const std::string &filename, PTrie &other) {
     std::ofstream f;
+    f.open(filename, std::ios::out);
     if(!f.is_open()) throw std::runtime_error("Cannot write to file");
     f << other;
     if(!f.good()) throw std::runtime_error("Cannot write to file");
