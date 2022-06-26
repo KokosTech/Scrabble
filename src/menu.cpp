@@ -82,13 +82,16 @@ int Menu::MainMenu() {
                 Options();
                 break;
             case 3:
+            { 
                 std::cout<<"Add new word to dictionary:";
                 std::string word;
                 std::cin>>word;
                 //AddWord(word);
                 break;
+            }
             case 4:
                 return 0;
+                
             default:
                 std::cout<<"Invalid input."<<std::endl;
                 cls();
