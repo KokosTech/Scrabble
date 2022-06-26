@@ -35,7 +35,7 @@ class PTrie {
         void _insert(TrieNode *current, const std::string &word, int endIndex);
 
         void insert(const std::string &word, int endIndex);
-        bool search(const std::string &word) const;
+        int search(const std::string &word) const;
         void remove(const std::string &word);
 
         // Getters and setters

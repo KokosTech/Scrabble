@@ -103,14 +103,14 @@ void PTrie::insert(const std::string &word, int endIndex) {
     _insert(this->root, word, endIndex);
 }
 
-bool PTrie::search(const std::string &word) const {
+int PTrie::search(const std::string &word) const {
     TrieNode *currNode = this->root;
     unsigned int currIndex = 0;
     TrieEdge *currEdge;
     while(currIndex <= word.length()) {
         currEdge = currNode->getEdge(word[currIndex]);
         std::string currWordPart = word.substr(currIndex);
-        if(!currEdge) return false;
+        if(!currEdge) return -1;
 
         int matchIndex = matchPrefixChars(currEdge->getPrefix(), currWordPart);
         if(matchIndex == ALL_MATCH && currEdge->getPrefix().length() <= currWordPart.length()) {
@@ -120,10 +120,10 @@ bool PTrie::search(const std::string &word) const {
                 break;
             }
         } else {
-            return false;
+            return -1;
         }                        
     }
-    return currNode->getIsEnd();
+    return currNode->getEndIndex();
 }
 
 TrieNode* PTrie::_delete_rec(TrieNode *currNode, const std::string &word) {
@@ -135,11 +135,13 @@ TrieNode* PTrie::_delete_rec(TrieNode *currNode, const std::string &word) {
             return nullptr;
         }
         currNode->setIsEnd(false);
+        currNode->setEndIndex(-1);
         return currNode;
     }
 
     TrieEdge *currEdge = currNode->getEdge(word[0]);    
-    std::string prefix = currEdge->getPrefix();
+    std::string prefix;
+    if(currEdge) prefix = currEdge->getPrefix();
 
     if(!currEdge || (word.rfind(prefix, 0) != 0)) 
         throw std::invalid_argument("Cannot delete word that is not in the dictionary!");
@@ -176,7 +178,7 @@ TrieNode* PTrie::_delete_rec(TrieNode *currNode, const std::string &word) {
 }
 
 void PTrie::remove(const std::string &word) {
-    if(word.empty()) throw std::invalid_argument("Cannot delete an empty string!");
+    if(word.empty()) throw std::invalid_argument("Cannot delete empty string!");
     this->_delete_rec(this->root, word);
 }
 
