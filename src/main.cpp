@@ -1,6 +1,6 @@
 #include "menu.hpp"
 #include "game.hpp"
-
+#include "umap/umap.hpp"
 #include <iostream>
 
 //#include "menu.hpp"
@@ -52,22 +52,26 @@ void HelloWorld::on_button_clicked()
   std::cout << "Hello World" << std::endl;
 }
 */
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
-/*   auto app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
+  /*   auto app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
 
-  HelloWorld helloworld;
-  //helloworld.add(Gtk::TextView());
-  //helloworld.show_all();
+    HelloWorld helloworld;
+    //helloworld.add(Gtk::TextView());
+    //helloworld.show_all();
 
-  //Shows the window and returns when it is closed.
-  return app->run(helloworld); */
+    //Shows the window and returns when it is closed.
+    return app->run(helloworld); */
 
+  // build dictionary from file
+  UMap dictionary;
+  readMapFromFile("../config/dict.txt", dictionary);
+  dictionary.sort(dictionary);
 
+  if (Menu::MainMenu())
+  {
 
-    if(Menu::MainMenu())
-    {
-        Game game(Menu::rounds, Menu::letters);
-        std::cout << game.start(Menu::letters, Menu::rounds);
-    }
+    Game game(Menu::rounds, Menu::letters);
+    std::cout << game.start(Menu::letters, Menu::rounds);
+  }
 }
