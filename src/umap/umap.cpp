@@ -95,7 +95,35 @@ void UMap::printMap()
     }
 }
 
-void writeToFile(const std::string &fileName, const UMap &other)
+UMap UMap::ToUpperCase(UMap &other)
+{
+    UMap newMap;
+    for (std::pair<std::string, int> pair : other.map)
+    {
+        for (int i = 0; i < pair.first.length(); i++)
+        {
+            pair.first[i] = toupper(pair.first[i]);
+        }
+        newMap.insert(pair.first);
+    }
+    return newMap;
+}
+
+UMap UMap::ToLowerCase(UMap &other)
+{
+    UMap newMap;
+    for (std::pair<std::string, int> pair : other.map)
+    {
+        for (int i = 0; i < pair.first.length(); i++)
+        {
+            pair.first[i] = tolower(pair.first[i]);
+        }
+        newMap.insert(pair.first);
+    }
+    return newMap;
+}
+
+void writeToFile(const std::string &fileName, UMap &other)
 {
     std::ofstream file;
     file.open(fileName);
@@ -103,6 +131,7 @@ void writeToFile(const std::string &fileName, const UMap &other)
     {
         throw std::runtime_error("Could not open file");
     }
+    other.ToLowerCase(other);
     file << other;
     if (!file.good())
     {
@@ -111,12 +140,13 @@ void writeToFile(const std::string &fileName, const UMap &other)
     file.close();
 }
 
-void writeToFile(std::ofstream &file, const UMap &other)
+void writeToFile(std::ofstream &file, UMap &other)
 {
     if (!file.is_open())
     {
         throw std::runtime_error("Could not open file");
     }
+    other.ToLowerCase(other);
     file << other;
     if (!file.good())
     {
@@ -137,6 +167,7 @@ void readFromFile(const std::string &fileName, UMap &other)
     {
         throw std::runtime_error("Could not read from file");
     }
+    other.ToUpperCase(other);
     file.close();
 }
 
@@ -151,4 +182,5 @@ void readFromFile(std::ifstream &file, UMap &other)
     {
         throw std::runtime_error("Could not read from file");
     }
+    other.ToUpperCase(other);
 }

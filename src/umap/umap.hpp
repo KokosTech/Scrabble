@@ -34,6 +34,11 @@ public:
     // IO Funcs
     void UMap::printMap();
 
+    // ToUpperCase , ToLowerCase
+
+    UMap ToUpperCase(UMap &other);
+    UMap ToLowerCase(UMap &other);
+
     // TODO - Write to file
     friend void writeToFile(const std::string &filename, UMap &other);
     friend void writeToFile(std::ofstream &f, UMap &other);
