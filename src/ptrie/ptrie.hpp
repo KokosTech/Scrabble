@@ -23,6 +23,7 @@ class PTrie {
 
     public:
         PTrie();
+        PTrie(std::vector<std::string> words);
         PTrie(const PTrie &other);
 
         PTrie &operator=(const PTrie &other);
@@ -37,6 +38,8 @@ class PTrie {
         void insert(const std::string &word, int endIndex);
         int search(const std::string &word) const;
         void remove(const std::string &word);
+
+        void getFromDictionary(std::vector<std::string> words);
 
         // Getters and setters
 

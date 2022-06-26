@@ -14,6 +14,8 @@
 
 PTrie::PTrie() { this->root = new TrieNode(); }
 
+PTrie::PTrie(std::vector<std::string> words) { getFromDictionary(words); }
+
 void PTrie::_copyConstructor(TrieNode *thisRoot, TrieNode *otherRoot) {
     if(!otherRoot) return;
     
@@ -25,6 +27,11 @@ void PTrie::_copyConstructor(TrieNode *thisRoot, TrieNode *otherRoot) {
 
         _copyConstructor(newNode, otherEdge->getNode());
     }
+}
+
+void PTrie::getFromDictionary(std::vector<std::string> words) {
+    for(long long i = 0; i < words.size(); ++i)
+        this->insert(words[i], i);
 }
 
 PTrie::PTrie(const PTrie &other) {
