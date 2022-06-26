@@ -214,6 +214,8 @@ std::vector<std::string> PTrie::getWords() const {
 std::ostream& operator<<(std::ostream& os, const PTrie &other) {
     for (auto i: other.getWords())
         os << i << ' ';
+
+    return os;
 }
 
 std::istream& operator>>(std::istream& is, PTrie &other) {
@@ -238,7 +240,7 @@ void PTrie::print() {
 
 // Write to file
 
-void writeToFile(const std::string &filename, const PTrie &other) {
+void writeToFile(const std::string &filename, PTrie &other) {
     std::ofstream f;
     if(!f.is_open()) throw std::runtime_error("Cannot write to file");
     f << other;
@@ -259,12 +261,12 @@ void readFromFile(const std::string &filename, PTrie &other) {
     f.open(filename, std::ios::in);
     if(!f.is_open()) throw std::runtime_error("Cannot read from file");
     f >> other;
-    if(!f.good()) throw std::runtime_error("Cannot read to file");
+    //if(!f.good()) throw std::runtime_error("Cannot read to file");
     f.close();
 }
 
 void readFromFile(std::ifstream &f, PTrie &other) {
     if(!f.is_open() || !f.good()) throw std::runtime_error("Cannot read from file");
     f >> other;
-    if(!f.good()) throw std::runtime_error("Cannot read to file");
+    //if(!f.good()) throw std::runtime_error("Cannot read to file");
 }

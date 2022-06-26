@@ -51,13 +51,11 @@ class PTrie {
 
         // TODO - Write to file
 
-        friend void writeToFile(PTrie &other);
         friend void writeToFile(const std::string &filename, PTrie &other);
         friend void writeToFile(std::ofstream &f, PTrie &other);
 
         // Read from file
 
-        friend void readFromFile(PTrie &other);
         friend void readFromFile(const std::string &filename, PTrie &other);
         friend void readFromFile(std::ifstream &f, PTrie &other);
 };
